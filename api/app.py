@@ -1,14 +1,11 @@
 # save this as app.py
 from flask import Flask, flash, request, redirect, url_for, render_template
 from markupsafe import escape
-import pickle
 import re
 import string
-import pandas as pd
-from newsapi import NewsApiClient
 import os
 from werkzeug.utils import secure_filename
-import imagetotext
+import easyocr
 import videototext
 import chatgpt
 import test
@@ -22,7 +19,7 @@ import test
 #RFC = pickle.load(open("RFCModel.pkl", "rb"))
 #SVC = pickle.load(open("SVCModel.pkl", "rb"))
 
-newsapi = NewsApiClient(api_key='0bafa3367a2d4d6286889bce3bd16e61')
+#newsapi = NewsApiClient(api_key='0bafa3367a2d4d6286889bce3bd16e61')
 
 
 app = Flask(__name__)
@@ -69,6 +66,13 @@ def output_lable(n):
     elif n == 1:
         return "True News"
 
+def imageToText(image):
+    reader = easyocr.Reader(['en'])
+    result = reader.readtext(image,paragraph="False",detail = 0)
+    print(result[0])
+    return result[0]
+
+
 #def manual_testing(news):
 #    testing_news = {"text":[news]}
 #    new_def_test = pd.DataFrame(testing_news)
@@ -89,15 +93,15 @@ def output_lable(n):
  #   arrRes=[output_lable(pred_LR[0]),output_lable(pred_DT[0]),output_lable(pred_GBC[0]),output_lable(pred_RFC[0]),output_lable(pred_SVC[0])]
  #   return arrRes
 
-def findNewsSimilar(news):
-    articles = newsapi.get_everything(q=news,sort_by='relevancy',language='en')
-    list1=[]
-    list2=[]
-    for article in articles['articles']:
-        list1.append(article['title'])
-        list2.append(article['url'])
-        print(article['title'])
-    return list1,list2
+#def findNewsSimilar(news):
+#    articles = newsapi.get_everything(q=news,sort_by='relevancy',language='en')
+ #   list1=[]
+  #  list2=[]
+   # for article in articles['articles']:
+    #    list1.append(article['title'])
+     #   list2.append(article['url'])
+      #  print(article['title'])
+    #return list1,list2
 
 
 @app.route('/image', methods=['GET', 'POST'])
@@ -116,7 +120,7 @@ def image():
             #print('upload_image filename: ' + filename)
             flash('Image successfully uploaded Waiting for results..!')
             path = 'static/uploads/{}'.format(filename)
-            text = imagetotext.imageToText(path)
+            text = imageToText(path)
             result,avg = test.SearchNews(text)
             return render_template("image.html",res=result,avg=avg)    
         else:

@@ -1,12 +1,8 @@
-from PIL import Image
-from pytesseract import pytesseract
-
-path_to_tesseract = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-
+import easyocr
 
 def imageToText(image):
-    img = Image.open(image)
-    pytesseract.tesseract_cmd = path_to_tesseract
-    text = pytesseract.image_to_string(img)
-    print(text[:-1])
-    return text[:-1]
+    reader = easyocr.Reader(['en'])
+    result = reader.readtext(image,paragraph="False",detail = 0)
+    print(result[0])
+    return result[0]
+

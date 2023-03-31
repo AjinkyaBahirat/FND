@@ -1,5 +1,5 @@
 Flask=1.1.2
 pygooglenews==0.1.2
-newsapi-python==0.2.7
+newsapi-python==0.2.7g
 pytesseract==0.3.10
 youtube-transcript-api==0.5.0
