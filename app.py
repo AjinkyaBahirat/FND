@@ -9,8 +9,21 @@ import easyocr
 import videototext
 import chatgpt
 import test
+import pyrebase
 
+config ={
+    "apiKey": "AIzaSyCztwgZDKmJPfYh7KGSGtuYMknpyWzv5C4",
+    "authDomain": "fndtry-fd145.firebaseapp.com",
+    "projectId": "fndtry-fd145",
+    "storageBucket": "fndtry-fd145.appspot.com",
+    "messagingSenderId": "1074974327122",
+    "appId": "1:1074974327122:web:e954c8083c55280ff77a8b",
+    "serviceAccount": "serviceAccount.json",
+    "databaseURL": "https://fndtry-fd145-default-rtdb.firebaseio.com"
+}
 
+firebase = pyrebase.initialize_app(config)
+storage = firebase.storage()
 
 #vectorization = pickle.load(open("Vectorization.pkl", "rb"))
 #LR = pickle.load(open("LRModel.pkl", "rb"))
@@ -116,11 +129,14 @@ def image():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            #file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            storage.child(filename).put(file)
+            url = storage.child(filename).get_url(None)
+            print(url)
             #print('upload_image filename: ' + filename)
             flash('Image successfully uploaded Waiting for results..!')
-            path = 'static/uploads/{}'.format(filename)
-            text = imageToText(path)
+            #path = 'static/uploads/{}'.format(filename)
+            text = imageToText(url)
             result,avg = test.SearchNews(text)
             return render_template("image.html",res=result,avg=avg)    
         else:
