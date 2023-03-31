@@ -1,8 +1,8 @@
 from pygooglenews import GoogleNews
-import sklearn
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-import difflib
+#import sklearn
+#from sklearn.feature_extraction.text import TfidfVectorizer
+#from sklearn.metrics.pairwise import cosine_similarity
+#import difflib
 
 gn = GoogleNews()
 
