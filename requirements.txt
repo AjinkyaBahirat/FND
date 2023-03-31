@@ -1,3 +1,4 @@
+gunicorn
 Flask>=2.2.2
 pygooglenews==0.1.2
 easyocr==1.6.2
