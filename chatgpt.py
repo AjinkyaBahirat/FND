@@ -1,6 +1,7 @@
 import openai
+import os
 # Set up the OpenAI API client
-openai.api_key = "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"
+openai.api_key = os.env.get('OpenAiKey')
 
 # Set up the model and prompt
 model_engine = "text-davinci-003"
