@@ -36,7 +36,7 @@ storage = firebase.storage()
 
 
 app = Flask(__name__)
-app.debug = True
+app.debug = False
 UPLOAD_FOLDER = 'static/uploads/'
  
 app.secret_key = "mlproject"
