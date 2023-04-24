@@ -160,8 +160,9 @@ def video():
 def factcheck():
     if request.method == 'POST':
         fact = str(request.form['fact'])
-        res = chatgpt.getResultChatGPT(fact)
-        return render_template("factcheck.html",result=res)
+        
+        res,ot = chatgpt.getResultChatGPT(fact)
+        return render_template("factcheck.html",result=res,ot=ot)
     else:
         return render_template("factcheck.html")
 
