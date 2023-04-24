@@ -27,7 +27,10 @@ def SearchNews(news):
     else:
         avg = 0.00
     #print(round(avg,2))
-    return stories,round(avg,2)
+    if(len(news.split())<8):
+        return stories,0.0
+    else:
+        return stories,round(avg,2)
 
 def scoreFinder(text1,text2):
     # Convert the texts into TF-IDF vectors
