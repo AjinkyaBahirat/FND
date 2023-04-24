@@ -121,7 +121,11 @@
                                 {% if avg>100 %}
                                     <h4>Your News is 100% <p style="color:green;">True News</p></h4>
                                 {% elif avg<1 %}
-                                <h4>Your News is Not Present it might be a<p style="color:red;">Fake News</p></h4>
+                                    {% if avg==0.0 %}
+                                        <h4>Sorry We are Unable to Process your input as it's word count is less, try to add more than 8 Words..<p style="color:blueviolet;">Still You can see Related Artical Below</p></h4>
+                                    {% else %}
+                                        <h4>Your News is Not Present it might be a<p style="color:red;">Fake News</p></h4>
+                                    {%endif%}    
                                 {% else %}
                                     <h4>Average of your news found on Internet is: {{avg}}%</h4>
                                 {% endif %}
