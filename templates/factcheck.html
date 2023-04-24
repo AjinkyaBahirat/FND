@@ -42,9 +42,9 @@
 
     <!-- Navbar Start -->
     <div class="container-fluid fixed-top px-0 wow fadeIn" data-wow-delay="0.1s">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+        <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
             <a href="/" class="navbar-brand ms-4 ms-lg-0">
-                <h1 class="display-6 text-primary m-0">Fake News Detection</h1>
+                <h6 class="display-6 text-primary m-0"><small>Fake News Detection</small></h6>
             </a>
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse"
                 data-bs-target="#navbarCollapse">
@@ -100,7 +100,13 @@
                 <div class="col-lg-10">
                     <div class="bg-white border rounded p-4 p-sm-5 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                            <h4 class="display-6 mb-6">{{result}}</h4>
+                            {% if ot==0 %}
+                                <h4>Sorry We are Unable to Process your input correctly as it's word count is less, try to add more than 8 Words..<p style="color:blueviolet;">Still Found some Related Details Below</p></h4>
+                                <hr>
+                                <h4 class="display-6 mb-6">{{result}}</h4>
+                            {% else %}
+                                <h4 class="display-6 mb-6">{{result}}</h4>
+                            {%endif%}
                         </div>
                     </div>
                 </div>
