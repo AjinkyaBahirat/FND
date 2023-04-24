@@ -17,6 +17,12 @@ def getResultChatGPT(prompt):
         temperature=0.5,
     )
 
-    response = completion.choices[0].text
-    print(response)
-    return response
+    if(len(prompt.split())<8):
+        response = completion.choices[0].text
+        ot = 0
+    else:
+        response = completion.choices[0].text
+        ot = 1
+
+    print(response,ot)
+    return response,ot
